@@ -60,7 +60,7 @@ public class TestEuler {
         String[] data = new String[3];
         data[0] = "A";
         data[1] = "B";
-        data[2] = "A~B";
+        data[2] = "A&B";
 
         double [] areas = new double[3];
         areas[0] = 1.0;
