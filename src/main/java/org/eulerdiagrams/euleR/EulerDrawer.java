@@ -75,7 +75,7 @@ class EulerDrawer {
     }
 
     public VennDiagram layout() {
-        AreaSpecification as = adp.asAreaSpecification();;
+        AreaSpecification as = adp.asAreaSpecification();
         JFrame frame = new JFrame();
         GraphDrawer gd = new GeneralAPForceModel();
         APCirclePanel apc = new APCirclePanel(frame);
