@@ -8,6 +8,7 @@ import org.eulerdiagrams.vennom.apCircles.AbstractDiagram;
 import org.eulerdiagrams.vennom.apCircles.AreaSpecification;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import com.google.common.collect.*;
 
@@ -32,33 +33,24 @@ class AbstractDiagramProvider {
     // contour labels and the single letter labels.
     private BiMap<Character, AbstractContour> apcirclesBridge = HashBiMap.create();
 
-    /**
-     * Parse the VennData structure into an AbstractDiagram.
-     *
-     * FIXME: Throw IllegalArgumentException when things get sticky.
-     */
-    public AbstractDiagramProvider(VennData data) {
-        String[][] zoneData = data.data;
-        double [] weights = data.areas;
-        // retain a list of all inzones, which we'll use later to add to the
-        // diagram once we've worked out the contour set.
-        List<AbstractContour[]> inzs = new Vector<AbstractContour[]>();
-        Set<AbstractContour> contours = new HashSet<AbstractContour>();
-
-        // zoneData holds Wilconson's micro-syntax at [i][0]
-        for(int i=0; i< zoneData.length; i++) {
-            AbstractContour [] inz = parseWilconsonSyntax(zoneData[i][0]);
-            inzs.add(inz);
-            for(AbstractContour c: inz) {
-                contours.add(c);
-            }
-        }
+    public AbstractDiagramProvider(JSONArea areaSpec) {
+        // Build a set of all the contours mentioned in the input JSON. 
+        Set<AbstractContour> contours = areaSpec.area_specifications.stream().flatMap(s -> s.keySet().stream())
+                                                                             .map(e -> new AbstractContour(e))
+                                                                             .collect(Collectors.toSet());
 
         diagram = new org.eulerdiagrams.AbstractDiagram.WeightedAbstractDiagram(contours);
-        // This is horrible, we're relying on weights and inzs to have the same
-        // length.
-        for(int i = 0; i < weights.length; i++) {
-            diagram.addZone(weights[i], inzs.get(i));
+
+        for(Map<String,Double> e : areaSpec.area_specifications) {
+            // We know e has one key and one value
+            Optional<String> rZoneSpec = e.keySet().stream().findFirst();
+
+            if(!rZoneSpec.isPresent()) {
+                throw new IllegalArgumentException();
+            }
+
+            double weight = e.get(rZoneSpec.get());
+            diagram.addZone(weight, parseWilconsonSyntax(rZoneSpec.get()));
         }
     }
 

@@ -70,7 +70,7 @@ class EulerDrawer {
         adp = new AbstractDiagramProvider(diagram);
     }
 
-    public EulerDrawer(VennData diagram) {
+    public EulerDrawer(JSONArea diagram) {
         adp = new AbstractDiagramProvider(diagram);
     }
 

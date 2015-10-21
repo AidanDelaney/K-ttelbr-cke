@@ -54,23 +54,4 @@ public class TestEuler {
 
         assertThat(vd, is(not(nullValue())));
     }
-
-    @Test
-    public void testVennDataVenn2() {
-        String[] data = new String[3];
-        data[0] = "A";
-        data[1] = "B";
-        data[2] = "A&B";
-
-        double [] areas = new double[3];
-        areas[0] = 1.0;
-        areas[1] = 1.0;
-        areas[2] = 0.3;
-
-        VennData d = new VennData(data, areas);
-        EulerDrawer ed = new EulerDrawer(d);
-        VennDiagram vd = ed.layout();
-
-        assertThat(vd, is(not(nullValue())));
-    }
 }
