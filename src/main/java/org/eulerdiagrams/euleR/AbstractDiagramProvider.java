@@ -36,6 +36,7 @@ class AbstractDiagramProvider {
     public AbstractDiagramProvider(JSONArea areaSpec) {
         // Build a set of all the contours mentioned in the input JSON. 
         Set<AbstractContour> contours = areaSpec.area_specifications.stream().flatMap(s -> s.keySet().stream())
+                                                                             .flatMap(s -> Arrays.asList(s.split("&")).stream())
                                                                              .map(e -> new AbstractContour(e))
                                                                              .collect(Collectors.toSet());
 
