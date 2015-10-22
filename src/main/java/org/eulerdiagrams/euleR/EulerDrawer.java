@@ -1,6 +1,7 @@
 package org.eulerdiagrams.euleR;
 
 import org.eulerdiagrams.AbstractDiagram.WeightedAbstractDiagram;
+import org.eulerdiagrams.ConcreteDiagram.ConcreteCircle;
 import org.eulerdiagrams.vennom.apCircles.drawers.GeneralAPForceModel;
 import org.eulerdiagrams.vennom.graph.*;
 import org.eulerdiagrams.vennom.apCircles.*;
@@ -8,6 +9,7 @@ import org.eulerdiagrams.vennom.apCircles.*;
 import static org.eulerdiagrams.vennom.apCircles.display.APCircleDisplay.*;
 import edu.uic.ncdm.venn.VennDiagram;
 import edu.uic.ncdm.venn.data.VennData;
+import math.geom2d.conic.Circle2D;
 
 import org.eulerdiagrams.vennom.graph.drawers.GraphDrawer;
 
@@ -18,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Vector;
 
 class EulerDrawer {
     static {
@@ -74,7 +77,7 @@ class EulerDrawer {
         adp = new AbstractDiagramProvider(diagram);
     }
 
-    public VennDiagram layout() {
+    public List<Circle2D> layout() {
         AreaSpecification as = adp.asAreaSpecification();
         JFrame frame = new JFrame();
         GraphDrawer gd = new GeneralAPForceModel();
@@ -85,7 +88,17 @@ class EulerDrawer {
         apc.setGraph(as.generateGeneralAugmentedIntersectionGraph());
         gd.layout();
 
-        return graphToVennDiagram(gd.getGraph());
+        return graphToConcreteCircles(gd.getGraph());
+    }
+
+    private List<Circle2D> graphToConcreteCircles(Graph graph) {
+        List<Circle2D> circles = new Vector<>();
+
+        for(Node n: graph.getNodes()) {
+            Point centre = n.getCentre();
+            circles.add(new Circle2D(centre.getX(), centre.getY(), n.getPreciseRadius()));
+        }
+        return circles;
     }
 
     private VennDiagram graphToVennDiagram(Graph graph) {
