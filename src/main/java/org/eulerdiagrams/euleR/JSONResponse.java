@@ -10,7 +10,7 @@ import org.eulerdiagrams.ConcreteDiagram.ConcreteDiagram;
 import math.geom2d.conic.Circle2D;
 
 public class JSONResponse {
-    public List<Circle2D> circles;
+    public List<JSONCircle> circles;
     public Map<AbstractZone, Double> areas;
 
     public JSONResponse(KöttelbrückeService kbs) {

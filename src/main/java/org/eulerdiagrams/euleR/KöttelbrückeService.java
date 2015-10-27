@@ -13,7 +13,7 @@ import edu.uic.ncdm.venn.VennDiagram;
 import math.geom2d.conic.Circle2D;
 
 public class KöttelbrückeService {
-    private List<Circle2D> circles;
+    private List<JSONCircle> circles;
     private EulerDrawer ed;
     private Graph graph;
 
@@ -23,7 +23,7 @@ public class KöttelbrückeService {
         circles = graphToConcreteCircles(graph);
     }
 
-    public List<Circle2D> getCircles() {
+    public List<JSONCircle> getCircles() {
         return circles;
     }
 
@@ -35,12 +35,12 @@ public class KöttelbrückeService {
         return graph;
     }
 
-    private List<Circle2D> graphToConcreteCircles(Graph graph) {
-        List<Circle2D> circles = new Vector<>();
+    private List<JSONCircle> graphToConcreteCircles(Graph graph) {
+        List<JSONCircle> circles = new Vector<>();
 
         for(Node n: graph.getNodes()) {
             Point centre = n.getCentre();
-            circles.add(new Circle2D(centre.getX(), centre.getY(), n.getPreciseRadius()));
+            circles.add(new JSONCircle(new Circle2D(centre.getX(), centre.getY(), n.getPreciseRadius()), n.getContour()));
         }
         return circles;
     }
