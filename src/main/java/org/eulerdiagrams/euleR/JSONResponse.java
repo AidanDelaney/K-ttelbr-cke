@@ -7,14 +7,14 @@ import org.eulerdiagrams.AbstractDiagram.AbstractZone;
 import org.eulerdiagrams.AbstractDiagram.VennSetIterator;
 import org.eulerdiagrams.ConcreteDiagram.ConcreteDiagram;
 
-import math.geom2d.conic.Circle2D;
-
 public class JSONResponse {
     public List<JSONCircle> circles;
     public Map<AbstractZone, Double> areas;
+    public long duration;
 
     public JSONResponse(KöttelbrückeService kbs) {
         this.circles = kbs.getCircles();
+        this.duration = kbs.getDuration();
 
         VennSetIterator vsi = new VennSetIterator(kbs.getDiagram().getContours());
         ConcreteDiagram cd = new ConcreteDiagram(kbs.getGraph(), kbs.getDiagram());

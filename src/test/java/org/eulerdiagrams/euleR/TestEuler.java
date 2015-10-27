@@ -1,10 +1,7 @@
 package org.eulerdiagrams.euleR;
 
-import edu.uic.ncdm.venn.VennDiagram;
-import edu.uic.ncdm.venn.data.VennData;
-
 import org.eulerdiagrams.AbstractDiagram.*;
-import org.eulerdiagrams.vennom.apCircles.AreaSpecification;
+import org.eulerdiagrams.vennom.graph.Graph;
 import org.junit.*;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -27,9 +24,9 @@ public class TestEuler {
         d.addZone(50.0, a, b);
 
         EulerDrawer ed = new EulerDrawer(d);
-        VennDiagram vd = ed.layout();
+        Graph g = ed.layout();
 
-        assertThat(vd, is(not(nullValue())));
+        assertThat(g, is(not(nullValue())));
     }
 
     @Test
@@ -49,9 +46,9 @@ public class TestEuler {
         areas.area_specifications.add(ab);
 
         EulerDrawer ed = new EulerDrawer(areas);
-        VennDiagram vd = ed.layout();
+        Graph g = ed.layout();
 
-        assertThat(vd, is(not(nullValue())));
+        assertThat(g, is(not(nullValue())));
     }
 
     @Test
@@ -73,8 +70,8 @@ public class TestEuler {
         d.addZone(10.0, a, b, c);
 
         EulerDrawer ed = new EulerDrawer(d);
-        VennDiagram vd = ed.layout();
+        Graph g = ed.layout();
 
-        assertThat(vd, is(not(nullValue())));
+        assertThat(g, is(not(nullValue())));
     }
 }
