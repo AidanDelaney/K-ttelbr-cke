@@ -77,7 +77,11 @@ class EulerDrawer {
         adp = new AbstractDiagramProvider(diagram);
     }
 
-    public List<Circle2D> layout() {
+    public org.eulerdiagrams.AbstractDiagram.AbstractDiagram getDiagram() {
+        return adp.getDiagram();
+    }
+
+    public Graph layout() {
         AreaSpecification as = adp.asAreaSpecification();
         JFrame frame = new JFrame();
         GraphDrawer gd = new GeneralAPForceModel();
@@ -88,58 +92,6 @@ class EulerDrawer {
         apc.setGraph(as.generateGeneralAugmentedIntersectionGraph());
         gd.layout();
 
-        return graphToConcreteCircles(gd.getGraph());
-    }
-
-    private List<Circle2D> graphToConcreteCircles(Graph graph) {
-        List<Circle2D> circles = new Vector<>();
-
-        for(Node n: graph.getNodes()) {
-            Point centre = n.getCentre();
-            circles.add(new Circle2D(centre.getX(), centre.getY(), n.getPreciseRadius()));
-        }
-        return circles;
-    }
-
-    private VennDiagram graphToVennDiagram(Graph graph) {
-        /*
-         * We need the node centre and the label.  The label is a double valued radius packed into a string.
-         */
-        final int XCOORD=0, YCOORD=1;
-
-        int numNodes = graph.getNodes().size();
-        double [][] centres  = new double[numNodes][2];
-        double [] diameters = new double[numNodes];
-        String [] labels = new String[numNodes];
-
-
-        // You can't pass back a null value to the venneuler R code and have it deal with it in a sane manner.
-        // Therefore, we're going to pass back an empty array in place of null.
-        double [] emptyDoubles = new double[numNodes];
-        String [] emptyStrings = new String[numNodes];
-
-        List<Node> nodes = graph.getNodes();
-        for(int i = 0; i<numNodes; i++) {
-            Node node = nodes.get(i);
-
-            // Get centre
-            centres[i][XCOORD] = node.getCentre().getX();
-            centres[i][YCOORD] = node.getCentre().getY();
-
-            // Get diameter
-            double radius = 0.0;
-            try {
-                radius = new Double(node.getLabel());
-            } catch (NumberFormatException nfe) {
-                // TODO: What to do here?
-            }
-            diameters[i] = radius*2;
-
-            // Get label string
-            labels[i] = node.getLabel();
-        }
-
-        // centers, diameters, areas,residuals, circleLabels, residualLabels, double[] colors, double stress, double stress01, double stress05) {
-        return new VennDiagram(centres, diameters, emptyDoubles, emptyDoubles, labels, emptyStrings, emptyDoubles, 0.0, 0.0, 0.0);
+        return gd.getGraph();
     }
 }

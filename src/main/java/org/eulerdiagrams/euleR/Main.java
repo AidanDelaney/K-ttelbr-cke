@@ -18,7 +18,7 @@ public class Main {
             JSONArea pojo = gson.fromJson(req.body(), JSONArea.class);
             KöttelbrückeService kbs = new KöttelbrückeService(pojo);
 
-            return gson.toJson(new JSONResponse(kbs.getDiagram()));
+            return gson.toJson(new JSONResponse(kbs));
         });
     }
 }
