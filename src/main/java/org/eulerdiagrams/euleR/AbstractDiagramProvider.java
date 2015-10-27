@@ -1,8 +1,5 @@
 package org.eulerdiagrams.euleR;
 
-import edu.uic.ncdm.venn.VennDiagram;
-import edu.uic.ncdm.venn.data.VennData;
-
 import org.eulerdiagrams.AbstractDiagram.*;
 import org.eulerdiagrams.vennom.apCircles.AbstractDiagram;
 import org.eulerdiagrams.vennom.apCircles.AreaSpecification;
@@ -27,11 +24,6 @@ import org.eulerdiagrams.AbstractDiagram.*;
  */
 class AbstractDiagramProvider {
     private org.eulerdiagrams.AbstractDiagram.WeightedAbstractDiagram diagram;
-
-    // The apCircles.AbstractDiagram only likes single letter contour labels.
-    // We use this to keep track of the translation between our AbstractDiagram
-    // contour labels and the single letter labels.
-    private BiMap<Character, AbstractContour> apcirclesBridge = HashBiMap.create();
 
     public AbstractDiagramProvider(JSONArea areaSpec) {
         // Build a set of all the contours mentioned in the input JSON. 
@@ -64,19 +56,6 @@ class AbstractDiagramProvider {
         // apCircles.AbstractDiagram, then into an AreaSpecification.
         org.eulerdiagrams.vennom.apCircles.AbstractDiagram pjrDiagram;
 
-        // To create an apCircles.AbstractDiagram we must map each Contour to a
-        // single letter label & write out the zones in the apCircles
-        // micro-syntax.
-
-        // First map Characters to each Contour
-
-        // Evil...but a result of the design decision of the underlying library
-        final char[] alphabet = {'a','b','c','d','e','f','g','h','i','j','k','l','m','o','p','q','r','s','t','u','v','w','x','y','z'};
-        AbstractContour [] contours = diagram.getContours().toArray(new AbstractContour[diagram.getContours().size()]);
-        for(int i=0; (i < contours.length) && (i < alphabet.length); i++) {
-            apcirclesBridge.put(alphabet[i], contours[i]);
-        }
-
         // Then build the Rogers syntax for each zone
         StringBuilder apCirclesSyntax = new StringBuilder();
         Map<AbstractZone, Double> weightmap = diagram.getWeightedZones();
@@ -84,7 +63,7 @@ class AbstractDiagramProvider {
         for(AbstractZone z: weightmap.keySet()) {
             StringBuilder pjrZone = new StringBuilder();
             for (AbstractContour c: z.getInContours()) {
-                pjrZone.append(apcirclesBridge.inverse().get(c));
+                pjrZone.append(c.getLabel());
             }
             pjrWeights.put(pjrZone.toString(), weightmap.get(z));
             apCirclesSyntax.append(pjrZone);
@@ -97,11 +76,10 @@ class AbstractDiagramProvider {
         return aspec;
     }
 
-    //TODO
-    // Convert the labes in the Graph back to a VennDiagram
-    public VennDiagram asVennDiagram(Graph g) throws NoSuchMethodException {
-        throw new NoSuchMethodException();
+    public org.eulerdiagrams.AbstractDiagram.AbstractDiagram getDiagram() {
+        return this.diagram;
     }
+
     /**
      * This syntax is too esoteric to warrant a parser generator, hence this
      * hand-rolled excuse.
