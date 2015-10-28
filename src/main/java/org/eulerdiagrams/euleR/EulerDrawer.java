@@ -47,6 +47,12 @@ class EulerDrawer {
         REPULSOR.setSelectedLineColor(Color.gray);
         REPULSOR.setPriority(1018);
 
+        SEPARATOR = new EdgeType("separator");
+        SEPARATOR.setLineColor(Color.cyan);
+        SEPARATOR.setTextColor(Color.cyan);
+        SEPARATOR.setSelectedLineColor(Color.gray);
+        SEPARATOR.setPriority(1017);
+
         IDEAL = new EdgeType("ideal");
         IDEAL.setLineColor(Color.blue);
         IDEAL.setTextColor(Color.blue);
