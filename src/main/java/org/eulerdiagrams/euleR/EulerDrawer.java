@@ -5,6 +5,7 @@ import org.eulerdiagrams.ConcreteDiagram.ConcreteCircle;
 import org.eulerdiagrams.vennom.apCircles.drawers.GeneralAPForceModel;
 import org.eulerdiagrams.vennom.graph.*;
 import org.eulerdiagrams.vennom.apCircles.*;
+import org.eulerdiagrams.vennom.apCircles.display.APCircleWindow;
 
 import static org.eulerdiagrams.vennom.apCircles.display.APCircleDisplay.*;
 import edu.uic.ncdm.venn.VennDiagram;
@@ -89,13 +90,19 @@ class EulerDrawer {
 
     public Graph layout() {
         AreaSpecification as = adp.asAreaSpecification();
-        JFrame frame = new JFrame();
-        GraphDrawer gd = new GeneralAPForceModel();
-        APCirclePanel apc = new APCirclePanel(frame);
-        apc.setSpecification(as);
-        apc.addGraphDrawer(gd);
+        APCircleWindow frame = new APCircleWindow();
+        frame.setVisible(false);
+        //APCirclePanel apc = new APCirclePanel(frame);
 
+        GeneralAPForceModel gd = new GeneralAPForceModel();
+        gd.setRandomize(false);
+        gd.setAnimateFlag(false);
+
+        APCirclePanel apc = frame.getGraphPanel();
+        apc.addGraphDrawer(gd);
         apc.setGraph(as.generateGeneralAugmentedIntersectionGraph());
+        apc.setSpecification(as);
+
         gd.layout();
 
         return gd.getGraph();
