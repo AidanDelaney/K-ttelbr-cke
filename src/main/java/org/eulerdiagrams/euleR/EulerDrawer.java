@@ -92,7 +92,6 @@ class EulerDrawer {
         AreaSpecification as = adp.asAreaSpecification();
         APCircleWindow frame = new APCircleWindow();
         frame.setVisible(false);
-        //APCirclePanel apc = new APCirclePanel(frame);
 
         GeneralAPForceModel gd = new GeneralAPForceModel();
         gd.setRandomize(false);
