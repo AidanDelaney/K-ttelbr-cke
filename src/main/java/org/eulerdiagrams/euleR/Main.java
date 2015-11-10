@@ -13,7 +13,7 @@ public class Main {
         port(PORT);
         staticFileLocation("/public");
         Gson gson = new Gson();
-        post("/", (req, res) -> {
+        post("/layout", (req, res) -> {
             System.err.println(req.body());
             JSONArea pojo = gson.fromJson(req.body(), JSONArea.class);
             KöttelbrückeService kbs = new KöttelbrückeService(pojo);
