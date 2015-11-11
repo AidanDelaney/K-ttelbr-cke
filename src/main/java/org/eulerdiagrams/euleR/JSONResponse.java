@@ -21,9 +21,7 @@ public class JSONResponse {
         areas = cd.getZoneAreaMap();
 
         for(AbstractZone z: vsi) {
-            if(!areas.containsKey(z)) {
-                areas.put(z, 0.0);
-            } else if(Double.isInfinite(areas.get(z))) {
+            if(Double.isInfinite(areas.get(z))) {
                 areas.remove(z);
             }
         }
