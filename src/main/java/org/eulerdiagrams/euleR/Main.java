@@ -14,11 +14,16 @@ public class Main {
         staticFileLocation("/public");
         Gson gson = new Gson();
         post("/layout", (req, res) -> {
-            System.err.println(req.body());
             JSONArea pojo = gson.fromJson(req.body(), JSONArea.class);
             KöttelbrückeService kbs = new KöttelbrückeService(pojo);
 
-            return gson.toJson(new JSONResponse(kbs));
+            return gson.toJson(new JSONLayoutResponse(kbs));
+        });
+
+        post("/areas", (req, res) -> {
+            JSONAreaRequest pojo = gson.fromJson(req.body(), JSONAreaRequest.class);
+
+            return gson.toJson(new JSONAreaResponse(pojo));
         });
     }
 }
