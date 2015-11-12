@@ -36,7 +36,7 @@ public class KöttelbrückeService {
     }
 
     public long getDuration() {
-        return timer.elapsed(TimeUnit.MICROSECONDS);
+        return timer.elapsed(TimeUnit.MILLISECONDS);
     }
 
     public Graph getGraph() {
