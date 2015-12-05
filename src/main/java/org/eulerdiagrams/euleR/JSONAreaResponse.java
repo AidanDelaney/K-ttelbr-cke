@@ -26,13 +26,8 @@ public class JSONAreaResponse extends JSONResponse {
         }
 
         List<ConcreteCircle> concreteCircles  = new Vector<>();
-        Set<Circle2D> allCircles = cs.stream().map(x -> x.cdr).collect(Collectors.toSet());
         for(Pair<AbstractContour, Circle2D> pair: cs) {
-            // remove this circle from all
-            allCircles.remove(pair.cdr);
-            concreteCircles.add(new ConcreteCircle(pair.car, pair.cdr, allCircles));
-            // then add it back
-            allCircles.add(pair.cdr);
+            concreteCircles.add(new ConcreteCircle(pair.car, pair.cdr));
         }
 
         AbstractDiagram ad = new AbstractDiagram(cs.stream().map(x -> x.car).collect(Collectors.toSet()));
