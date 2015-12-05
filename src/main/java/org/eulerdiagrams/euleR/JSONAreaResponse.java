@@ -7,6 +7,7 @@ import java.util.Vector;
 import java.util.stream.Collectors;
 
 import org.eulerdiagrams.AbstractDiagram.AbstractContour;
+import org.eulerdiagrams.AbstractDiagram.AbstractDiagram;
 import org.eulerdiagrams.AbstractDiagram.AbstractZone;
 import org.eulerdiagrams.ConcreteDiagram.ConcreteCircle;
 import org.eulerdiagrams.ConcreteDiagram.ConcreteDiagram;
@@ -34,7 +35,8 @@ public class JSONAreaResponse extends JSONResponse {
             allCircles.add(pair.cdr);
         }
 
-        ConcreteDiagram d = new ConcreteDiagram(cs.stream().map(x -> x.car).collect(Collectors.toList()), concreteCircles);
+        AbstractDiagram ad = new AbstractDiagram(cs.stream().map(x -> x.car).collect(Collectors.toSet()));
+        ConcreteDiagram d = new ConcreteDiagram(ad, concreteCircles);
 
         circles = jar.circles;
         areas = d.getZoneAreaMap();
