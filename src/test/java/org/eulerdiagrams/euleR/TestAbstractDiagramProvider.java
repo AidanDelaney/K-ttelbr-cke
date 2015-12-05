@@ -29,7 +29,7 @@ public class TestAbstractDiagramProvider {
         AbstractDiagramProvider adp  = new AbstractDiagramProvider(areas);
         AreaSpecification as = adp.asAreaSpecification();
 
-        assertThat(as.getZoneArea("a"), is(closeTo(20.0, 1.0)));
+        assertThat(as.getZoneArea("A"), is(closeTo(20.0, 1.0)));
     }
 
     @Test
