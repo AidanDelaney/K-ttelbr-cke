@@ -6,6 +6,7 @@ import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
 import org.eulerdiagrams.AbstractDiagram.AbstractDiagram;
+import org.eulerdiagrams.vennom.apCircles.VennomLayout;
 import org.eulerdiagrams.vennom.graph.Graph;
 import org.eulerdiagrams.vennom.graph.Node;
 
@@ -15,14 +16,15 @@ import math.geom2d.conic.Circle2D;
 
 public class KöttelbrückeService {
     private List<JSONCircle> circles;
-    private EulerDrawer ed;
     private Graph graph;
     private Stopwatch timer;
+    private AbstractDiagramProvider adp;
 
     public KöttelbrückeService(JSONArea areaSpec) {
-        ed = new EulerDrawer(areaSpec);
+        adp = new AbstractDiagramProvider(areaSpec);
+        VennomLayout vl = new VennomLayout(VennomLayout.FORCE_LAYOUT, adp.asAreaSpecification());
+        graph = vl.layout();
         timer = Stopwatch.createStarted();
-        graph = ed.layout();
         timer.stop();
         circles = graphToConcreteCircles(graph);
     }
@@ -32,7 +34,7 @@ public class KöttelbrückeService {
     }
 
     public AbstractDiagram getDiagram() {
-        return ed.getDiagram();
+        return adp.getDiagram();
     }
 
     public long getDuration() {
