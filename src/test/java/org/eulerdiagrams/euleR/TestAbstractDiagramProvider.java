@@ -1,7 +1,5 @@
 package org.eulerdiagrams.euleR;
 
-import edu.uic.ncdm.venn.data.VennData;
-
 import org.eulerdiagrams.vennom.apCircles.AreaSpecification;
 import org.junit.*;
 import static org.hamcrest.Matchers.*;
@@ -44,7 +42,7 @@ public class TestAbstractDiagramProvider {
         weights[1] = 20.0;
         weights[2] = 10.0;
 
-        VennData data = new VennData(zones, weights, true);
+        ///VennData data = new VennData(zones, weights, true);
         //AbstractDiagramProvider adp  = new AbstractDiagramProvider(data);
         //AreaSpecification as = adp.asAreaSpecification();
 
