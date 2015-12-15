@@ -45,32 +45,8 @@ public class TestEuler {
         areas.area_specifications.add(b);
         areas.area_specifications.add(ab);
 
-        EulerDrawer ed = new EulerDrawer(areas);
-        Graph g = ed.layout();
-
-        assertThat(g, is(not(nullValue())));
-    }
-
-    @Test
-    public void testVenn3() {
-        Set<AbstractContour> contours = new HashSet<AbstractContour>();
-        AbstractContour a = new AbstractContour("a");
-        AbstractContour b = new AbstractContour("b");
-        AbstractContour c = new AbstractContour("c");
-        contours.add(a);
-        contours.add(b);
-        contours.add(c);
-
-        WeightedAbstractDiagram d = new WeightedAbstractDiagram(contours);
-        d.addZone(100.0, a);
-        d.addZone(100.0, b);
-        d.addZone(40.0, a, b);
-        d.addZone(40.0, a, c);
-        d.addZone(40.0, b, c);
-        d.addZone(10.0, a, b, c);
-
-        EulerDrawer ed = new EulerDrawer(d);
-        Graph g = ed.layout();
+        KöttelbrückeService ed = new KöttelbrückeService(areas);
+        Graph g = ed.getGraph();
 
         assertThat(g, is(not(nullValue())));
     }
