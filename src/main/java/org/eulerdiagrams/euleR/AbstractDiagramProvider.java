@@ -65,6 +65,8 @@ class AbstractDiagramProvider {
             for (AbstractContour c: z.getInContours()) {
                 pjrZone.append(c.getLabel());
             }
+            pjrZone = pjrZone.chars().sorted()
+                    .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append);
             pjrWeights.put(pjrZone.toString(), weightmap.get(z));
             apCirclesSyntax.append(pjrZone);
             apCirclesSyntax.append(" "); //separate zones with a space
