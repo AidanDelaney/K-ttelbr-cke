@@ -11,7 +11,7 @@ import org.eulerdiagrams.vennom.graph.EdgeType;
 import org.eulerdiagrams.vennom.graph.Graph;
 import org.eulerdiagrams.vennom.graph.Node;
 
-import static org.eulerdiagrams.vennom.apCircles.display.APCircleDisplay.*;
+//import static org.eulerdiagrams.vennom.apCircles.display.APCircleDisplay.*;
 
 import com.google.common.base.Stopwatch;
 
@@ -24,37 +24,37 @@ public class KöttelbrückeService {
          * It's not pretty, but without setting properties of the EdgeTypes you get NullPointerExceptions from the
          * VenNom code.
          */
-        FIXED = new EdgeType("fixed");
+        EdgeType FIXED = new EdgeType("fixed");
         FIXED.setLineColor(Color.black);
         FIXED.setTextColor(Color.black);
         FIXED.setSelectedLineColor(Color.gray);
         FIXED.setPriority(1020);
 
-        ATTRACTOR = new EdgeType("attractor");
+        EdgeType ATTRACTOR = new EdgeType("attractor");
         ATTRACTOR.setLineColor(Color.green);
         ATTRACTOR.setTextColor(Color.green);
         ATTRACTOR.setSelectedLineColor(Color.gray);
         ATTRACTOR.setPriority(1019);
 
-        REPULSOR = new EdgeType("repulsor");
+        EdgeType REPULSOR = new EdgeType("repulsor");
         REPULSOR.setLineColor(Color.red);
         REPULSOR.setTextColor(Color.red);
         REPULSOR.setSelectedLineColor(Color.gray);
         REPULSOR.setPriority(1018);
 
-        SEPARATOR = new EdgeType("separator");
+        EdgeType SEPARATOR = new EdgeType("separator");
         SEPARATOR.setLineColor(Color.cyan);
         SEPARATOR.setTextColor(Color.cyan);
         SEPARATOR.setSelectedLineColor(Color.gray);
         SEPARATOR.setPriority(1017);
 
-        IDEAL = new EdgeType("ideal");
+        EdgeType IDEAL = new EdgeType("ideal");
         IDEAL.setLineColor(Color.blue);
         IDEAL.setTextColor(Color.blue);
         IDEAL.setSelectedLineColor(Color.gray);
         IDEAL.setPriority(1016);
 
-        CONTAINMENT = new EdgeType("containment");
+        EdgeType CONTAINMENT = new EdgeType("containment");
         CONTAINMENT.setLineColor(Color.magenta);
         CONTAINMENT.setTextColor(Color.magenta);
         CONTAINMENT.setSelectedLineColor(Color.magenta);
