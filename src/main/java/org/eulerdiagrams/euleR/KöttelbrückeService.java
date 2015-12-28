@@ -6,19 +6,18 @@ import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
 import org.eulerdiagrams.AbstractDiagram.AbstractDiagram;
+import org.eulerdiagrams.vennom.apCircles.AreaSpecification;
 import org.eulerdiagrams.vennom.apCircles.VennomLayout;
 import org.eulerdiagrams.vennom.graph.EdgeType;
 import org.eulerdiagrams.vennom.graph.Graph;
 import org.eulerdiagrams.vennom.graph.Node;
-
-//import static org.eulerdiagrams.vennom.apCircles.display.APCircleDisplay.*;
 
 import com.google.common.base.Stopwatch;
 
 import math.geom2d.conic.Circle2D;
 
 public class KöttelbrückeService {
-   
+
     private List<JSONCircle> circles;
     private Graph graph;
     private Stopwatch timer;
@@ -26,7 +25,8 @@ public class KöttelbrückeService {
 
     public KöttelbrückeService(JSONArea areaSpec) {
         adp = new AbstractDiagramProvider(areaSpec);
-        VennomLayout vl = new VennomLayout(VennomLayout.FORCE_LAYOUT, adp.asAreaSpecification());
+        AreaSpecification as = adp.asAreaSpecification();
+        VennomLayout vl = new VennomLayout(VennomLayout.FORCE_LAYOUT, as);
         timer = Stopwatch.createStarted();
         graph = vl.layout();
         timer.stop();
